@@ -8,16 +8,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56839def372ffa2488110f58a9cc4263, type: 3}
+  m_Script: {fileID: 11500000, guid: e4f478d88fa54364386da6a2f19624b6, type: 3}
   m_Name: ActionDatabase
   m_EditorClassIdentifier: 
-  database:
-  - name: Action Name
+  actions:
+  - name: Basic Attack
+    idNumber: 0
     superType: 0
-    subTypes: 
-    healthDamage: 0
-    energyDamage: 0
-    focusDamage: 0
-    healthCost: 0
-    energyCost: 5.76
-    focusCost: 0
+    supTypes: 01000000
+    baseHealthDamage: 0
+    baseEnergyDamage: 0
+    baseFocusDamage: 0
+    baseHealthCost: 0
+    baseEnergyCost: 0
+    baseFocusCost: 0
