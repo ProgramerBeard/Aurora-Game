@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Entitiy : MonoBehaviour {
-
-	public Action[] actions;
+[System.Serializable]
+public class StatModifier {
+	public int modifier;
 }

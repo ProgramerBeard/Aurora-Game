@@ -5,14 +5,28 @@ using UnityEngine;
 [CreateAssetMenu (fileName = "New Effect", menuName = "Combat/Effect/Create New Effect")]
 public class Effect : ScriptableObject {
 
+	public enum SuperTypes
+	{
+		PHYSCIAL, MAGICAL
+	};
+
+	public enum SubTypes
+	{
+		NORAML, FIRE, ICE, EARTH, BLACK, WHITE
+	};
+
+	[Header ("Description")]
 	new public string name = "New Effect";
+	public SuperTypes[] superType;
+	public SubTypes[] subType;
+
+	[Space (10)]
 	public Sprite icon = null;
-	public string description = "This is a description.";
+	[Space (10)]
 
-	public float healthCost = 0;
-	public float energyCost = 0;
-	public float focusCost = 0;
+	[TextArea (3, 10)]public string description = "This is a description.";
 
+	[Header ("Gameplay")]
 	public float healthDamage = 0;
 	public float energyDamage = 0;
 	public float focusDamage = 0;

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Name: BasicPhysicalAttack
   m_EditorClassIdentifier: 
   name: BasicPhysicalAttack
+  superType: 00000000
+  subType: 00000000
   icon: {fileID: 0}
   description: This is a description.
   healthCost: 0
