@@ -1,2 +1,3 @@
-# Aurora-Game
-A game by imitation Studios.
+# Project Aurora
+
+Project Aurora a game by Imitation Studios.
