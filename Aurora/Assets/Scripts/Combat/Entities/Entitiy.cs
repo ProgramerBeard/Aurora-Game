@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionDatabase : ScriptableObject {
-	public Action [] actions;
+public class Entitiy : MonoBehaviour {
+
+	public Action[] actions;
 }

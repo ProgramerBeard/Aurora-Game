@@ -2,39 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Action {
+[CreateAssetMenu (fileName = "New Action", menuName = "Combat/Action/Create New Action")]
+public class Action : ScriptableObject {
 
-	public enum SuperTypes
-	{
-		TARGET,
-		SELF
-	};
+	new public string name = "New Action";
+	public Sprite icon = null;
+	public string description = "This is a description.";
 
-	public enum SubTypes
-	{
-		MAGICAL,
-		PHYSICAL,
-	};
+	public float healthCost = 0;
+	public float energyCost = 0;
+	public float focusCost = 0;
 
-	[Header ("Description")]
-	public string name;
-	public int idNumber;
-	public SuperTypes superType;
-	public SubTypes[] supTypes;
+	public float healthDamage = 0;
+	public float energyDamage = 0;
+	public float focusDamage = 0;
 
-	[Header ("Damage")]
-	public float baseHealthDamage;
-	public float baseEnergyDamage;
-	public float baseFocusDamage;
-
-	[Header ("Cost")]
-	public float baseHealthCost;
-	public float baseEnergyCost;
-	public float baseFocusCost;
-
-	//Add the paraters
-	public void ExeuteAction () {
-		
+	// Needs two entity stats to have an action on.
+	public virtual void ExecuteAction () {
+	
 	}
 }
