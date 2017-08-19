@@ -2,105 +2,145 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntitySheet : MonoBehaviour {
+public class EntitySheet : MonoBehaviour
+{
 
-	public Stat maxHealth;
-	public float currentHealth { get; protected set; }
+    public Stat maxHealth;
 
-	public Stat maxEnergy;
-	public float currentEnergy { get; protected set; }
+    public float currentHealth { get; protected set; }
 
-	public Stat maxFocus;
-	public float currentFocus { get; protected set; }
+    public Stat maxEnergy;
 
-	public Stat physicalDefenese;
-	public Stat magicalDefenese;
+    public float currentEnergy { get; protected set; }
 
-	//public event System.Action OnHealthReachedZero;
+    public Stat maxFocus;
 
-	public virtual void Awake () {
-		currentHealth = maxHealth.GetValue ();
-		currentEnergy = maxEnergy.GetValue ();
-		currentFocus = 0;
-	}
+    public float currentFocus { get; protected set; }
 
-	public virtual void Start () {}
+    public Stat physicalDefenese;
+    public Stat magicalDefenese;
 
-	public void GainHealth (float amount) {
-		currentHealth += amount;
+    public Action[] actions;
+    public Effect[] effects;
 
-		if (currentHealth > maxHealth.GetValue ()) {
-			currentHealth = maxHealth.GetValue ();
-		}
-	}
+    public List<Action> actionList;
+    public List<Effect> effectList;
 
-	public void GainEnergy (float amount) {
-		currentEnergy += amount;
+    public virtual void Awake()
+    {
+        currentHealth = maxHealth.GetValue();
+        currentEnergy = maxEnergy.GetValue();
+        currentFocus = 0;
 
-		if (currentEnergy > maxEnergy.GetValue ()) {
-			currentEnergy = maxEnergy.GetValue ();
-		}
-	}
+        foreach (Action a in actions)
+        {
+            actionList.Add(a);
+        }
 
-	public void GainFocus (float amount) {
-		currentFocus += amount;
+        foreach (Effect e in effects)
+        {
+            effectList.Add(e);
+        }
+    }
 
-		if (currentFocus > maxFocus.GetValue ()) {
-			currentFocus = maxFocus.GetValue ();
-		}
-	}
+    public virtual void Start()
+    {
+    }
 
-	public void TakeDamage (float damage, Action.SuperTypes[] superTypes) {
-		float damageReduction = 0;
+    public void GainHealth(float amount)
+    {
+        currentHealth += amount;
 
-		foreach (Action.SuperTypes st in superTypes) {
-			if (st == Action.SuperTypes.PHYSCIAL) {
-				damageReduction += physicalDefenese.GetValue ();
-			}
-			else if (st == Action.SuperTypes.MAGICAL) {
-				damageReduction += magicalDefenese.GetValue ();
-			}
-		}
+        if (currentHealth > maxHealth.GetValue())
+        {
+            currentHealth = maxHealth.GetValue();
+        }
+    }
 
-		damage -= damageReduction;
+    public void GainEnergy(float amount)
+    {
+        currentEnergy += amount;
 
-		if (damage < 0) {
-			damage = 0;
-		}
+        if (currentEnergy > maxEnergy.GetValue())
+        {
+            currentEnergy = maxEnergy.GetValue();
+        }
+    }
 
-		TakeDamage (damage);
-	}
+    public void GainFocus(float amount)
+    {
+        currentFocus += amount;
 
-	public void TakeDamage (float damage, Effect.SuperTypes[] superTypes) {
-		float damageReduction = 0;
+        if (currentFocus > maxFocus.GetValue())
+        {
+            currentFocus = maxFocus.GetValue();
+        }
+    }
 
-		foreach (Effect.SuperTypes st in superTypes) {
-			if (st == Effect.SuperTypes.PHYSCIAL) {
-				damageReduction += physicalDefenese.GetValue ();
-			}
-			else if (st == Effect.SuperTypes.MAGICAL) {
-				damageReduction += magicalDefenese.GetValue ();
-			}
-		}
+    public void TakeDamage(float damage, Action.SuperTypes[] superTypes)
+    {
+        float damageReduction = 0;
 
-		damage -= damageReduction;
+        foreach (Action.SuperTypes st in superTypes)
+        {
+            if (st == Action.SuperTypes.PHYSCIAL)
+            {
+                damageReduction += physicalDefenese.GetValue();
+            }
+            else if (st == Action.SuperTypes.MAGICAL)
+            {
+                damageReduction += magicalDefenese.GetValue();
+            }
+        }
 
-		if (damage < 0) {
-			damage = 0;
-		}
+        damage -= damageReduction;
 
-		TakeDamage (damage);
-	}
+        if (damage < 0)
+        {
+            damage = 0;
+        }
 
-	public void Die () {
-		// Do things that dead things do.
-	}
+        TakeDamage(damage);
+    }
 
-	private void TakeDamage (float damage) {
-		currentHealth -= damage;
+    public void TakeDamage(float damage, Effect.SuperTypes[] superTypes)
+    {
+        float damageReduction = 0;
 
-		if (currentHealth <= 0) {
-			Die ();
-		}
-	}
+        foreach (Effect.SuperTypes st in superTypes)
+        {
+            if (st == Effect.SuperTypes.PHYSCIAL)
+            {
+                damageReduction += physicalDefenese.GetValue();
+            }
+            else if (st == Effect.SuperTypes.MAGICAL)
+            {
+                damageReduction += magicalDefenese.GetValue();
+            }
+        }
+
+        damage -= damageReduction;
+
+        if (damage < 0)
+        {
+            damage = 0;
+        }
+
+        TakeDamage(damage);
+    }
+
+    public void Die()
+    {
+        // Do things that dead things do.
+    }
+
+    private void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
 }

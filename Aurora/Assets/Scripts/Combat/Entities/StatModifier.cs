@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class StatModifier {
-	public int modifier;
+public class StatModifier
+{
+    public int modifier;
 }
