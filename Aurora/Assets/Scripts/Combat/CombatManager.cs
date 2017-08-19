@@ -35,9 +35,10 @@ public class CombatManager : Singleton<CombatManager>
     public CombatPhases curPhase = CombatPhases.START_COMBAT;
     public EntitySheet[] entities;
     public bool isOver = false;
-    // Should be set to a size of two but I kind of what to use this for future projects.
 
     private EntitySheet player;
+    private Action attackerAction;
+    private Action defenderAction;
 
     // Goes to the next phase ignores the PLAYER_WIN and PLAYER_LOSE phase.
     public void GotoNextPhase()
@@ -111,14 +112,18 @@ public class CombatManager : Singleton<CombatManager>
         else if (phase == 3)
         {
             // Have the attacker pick there action.
+            attackerAction = entities[0].PickAction ();
         }
         else if (phase == 4)
         {
             // Have the defender pick there action.
+            defenderAction = entities[1].PickAction ();
         }
         else if (phase == 5)
         {
             // Execute the attacker and defenders moves.
+            defenderAction.ExecuteAction();
+            attackerAction.ExecuteAction();
 
             CheckWinOrLose();
 
@@ -139,6 +144,16 @@ public class CombatManager : Singleton<CombatManager>
                 foreach (Effect e in es.effectList)
                 {
                     e.ExecuteEffectAtEndOfTurn();
+                    e.durration --;
+                }
+
+                for (int i = 0; i < es.effectList.Count; i++)
+                {
+                    Effect e = es.effectList[i];
+                    if (e.durration <= 0)
+                    {
+                        es.effectList.Remove(e);
+                    }
                 }
             }
 
@@ -150,6 +165,7 @@ public class CombatManager : Singleton<CombatManager>
             }
             else
             {
+                Swap(entities, 0, 1);
                 GotoNextPhase();
             }
         }
@@ -169,5 +185,13 @@ public class CombatManager : Singleton<CombatManager>
         {
             Debug.LogError("There is a error in the boundings for the phase [needs to be inbetween 1-9]");
         }
+    }
+
+    // Swaps the entriys of an array. a is a index of the array and b is another index.
+    private void Swap(EntitySheet[] t, int a, int b) 
+    {
+        EntitySheet temp = t[b];
+        t[b] = t[a];
+        t[a] = temp;
     }
 }

@@ -134,6 +134,11 @@ public class EntitySheet : MonoBehaviour
         // Do things that dead things do.
     }
 
+    public virtual Action PickAction() 
+    {
+        return null;
+    }
+
     private void TakeDamage(float damage)
     {
         currentHealth -= damage;
